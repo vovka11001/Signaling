@@ -4,23 +4,10 @@ using UnityEngine;
 public class Signalization : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
-    [SerializeField] private House _house;
     
     private float _targetVolume; 
     private float _maxVolume = 1f;
     private float _fadeSpeed = 1f;
-
-    private void OnEnable()
-    {
-        _house.OnPlayerInside += IncreaseVolume;
-        _house.OnPlayerOutside += DecreaseVolume;
-    }
-
-    private void OnDisable()
-    {
-        _house.OnPlayerInside -= IncreaseVolume;
-        _house.OnPlayerOutside -= DecreaseVolume;
-    }
     
     private void Start()
     {
@@ -30,6 +17,16 @@ public class Signalization : MonoBehaviour
     private void Update()
     {
         StartSignaling();
+    }
+    
+    public void IncreaseVolume()
+    {
+        _targetVolume = _maxVolume;
+    }
+
+    public void DecreaseVolume()
+    {
+        _targetVolume = 0f;
     }
 
     private void StartSignaling()
@@ -41,15 +38,5 @@ public class Signalization : MonoBehaviour
         
         if (_audioSource.volume == 0f && _audioSource.isPlaying)
             _audioSource.Stop();
-    }
-    
-    private void IncreaseVolume()
-    {
-        _targetVolume = _maxVolume;
-    }
-
-    private void DecreaseVolume()
-    {
-        _targetVolume = 0f;
     }
 }

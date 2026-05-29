@@ -1,24 +1,19 @@
-using System;
 using UnityEngine;
 
 public class House : MonoBehaviour
 {
-    public event Action OnPlayerInside;
-    public event Action OnPlayerOutside;
-    
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] private Signalization _signalization;
+    [SerializeField] private Detector _detector;
+
+    private void OnEnable()
     {
-        if (other.TryGetComponent(out Rigidbody rigidbody))
-        {
-            OnPlayerInside?.Invoke();
-        }
+        _detector.PlayerEntered += _signalization.IncreaseVolume;
+        _detector.PlayerLeft += _signalization.DecreaseVolume;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDisable()
     {
-        if (other.TryGetComponent(out Rigidbody rigidbody))
-        {
-            OnPlayerOutside?.Invoke();
-        }
+        _detector.PlayerEntered -= _signalization.IncreaseVolume;
+        _detector.PlayerLeft -= _signalization.DecreaseVolume;
     }
 }
