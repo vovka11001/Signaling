@@ -4,10 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class Detector : MonoBehaviour
 {
+    private BoxCollider _collider;
     public event Action PlayerEntered;
     public event Action PlayerLeft;
-    
-    private BoxCollider _collider;
 
     private void Awake()
     {
