@@ -8,12 +8,14 @@ public class House : MonoBehaviour
     private void OnEnable()
     {
         _detector.PlayerEntered += _signalization.IncreaseVolume;
+        _detector.PlayerEntered += _signalization.StartCountDown;
         _detector.PlayerLeft += _signalization.DecreaseVolume;
     }
 
     private void OnDisable()
     {
         _detector.PlayerEntered -= _signalization.IncreaseVolume;
+        _detector.PlayerEntered -= _signalization.StartCountDown;
         _detector.PlayerLeft -= _signalization.DecreaseVolume;
     }
 }
